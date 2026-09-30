@@ -36,3 +36,42 @@ CREATE TABLE StudentCourse (
     FOREIGN KEY (CourseID)
         REFERENCES Course(CourseID)
 );
+INSERT INTO Department (DepartmentID, DepartmentName) VALUES
+(10, 'Computer Science'),
+(20, 'Mathematics');
+
+INSERT INTO Faculty (FacultyID, FacultyName, DepartmentID) VALUES
+(501, 'Dr. Ravi', 10),
+(502, 'Dr. Meena', 20);
+
+INSERT INTO Student (StudentID, StudentName) VALUES
+(1001, 'Arun'),
+(1002, 'Priya'),
+(1003, 'Kumar');
+
+INSERT INTO Course (CourseID, CourseName, FacultyID) VALUES
+(201, 'Database Systems', 501),
+(202, 'Data Structures', 501),
+(203, 'Mathematics', 502);
+
+INSERT INTO StudentCourse (StudentID, CourseID) VALUES
+(1001, 201),
+(1001, 202),
+(1002, 203),
+(1003, 201);
+
+SELECT
+    Student.StudentID,
+    Student.StudentName,
+    Course.CourseName,
+    Faculty.FacultyName,
+    Department.DepartmentName
+FROM Student
+INNER JOIN StudentCourse
+    ON Student.StudentID = StudentCourse.StudentID
+INNER JOIN Course
+    ON StudentCourse.CourseID = Course.CourseID
+INNER JOIN Faculty
+    ON Course.FacultyID = Faculty.FacultyID
+INNER JOIN Department
+    ON Faculty.DepartmentID = Department.DepartmentID;
